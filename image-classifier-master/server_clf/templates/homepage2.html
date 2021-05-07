@@ -1,0 +1,39 @@
+<!--https://www.youtube.com/watch?v=wYuQM7__D1M-->
+<!--https://vincentgarreau.com/particles.js/-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <!-- <meta charset="utf-8">-->
+        <title>Portfolio</title>
+        {% load static %}
+        <link href="/downloads/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="sentFile"/>
+    <input type="submit" name="submit" value="Upload"/>
+</form>
+<ul>
+    {% for e in name %}
+    <p>{{e}}</p>
+    {% endfor %}
+</ul>
+
+{% for img in urls %}
+<img src="{{img}}">
+{% endfor %}
+
+{{name}}
+<img src="{{image}}">
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,140 @@
+<!--https://www.youtube.com/watch?v=wYuQM7__D1M-->
+<!--https://vincentgarreau.com/particles.js/-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <!-- <meta charset="utf-8">-->
+        <title>Portfolio</title>
+        {% load static %}
+        <link href="/downloads/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="particles-js">
+    <div id="hero">
+    <div class="navbar">
+        <img src="../downloads/css/images/logo.png" class="logo">
+        <div class="user" >
+            <button type="button">Explore</button>
+            <img src="../downloads/css/images/user.png">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <h1>Discover</h1>
+            <br/>
+            <p>Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla
+            Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla
+            Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla</p>
+{#            <input type="text" placeholder="Search">#}
+            <br/>
+            <br/>
+            <label for="file-upload" class="custom-file-upload">
+                <i class="fa fa-cloud-upload"></i> Select Images
+            </label>
+            <input id="file-upload" type="file" style="visibility: hidden"/>
+        </div>
+    </div>
+
+    <img src="../downloads/css/images/bg1.png" id="image">
+
+    <div class="slider">
+        <img src="../downloads/css/images/left-arrow.png" id="prev">
+        <div class="preview">
+            {% for img in urls %}
+                <img src="{{img}}">
+            {% endfor %}
+        </div>
+        <img src="../downloads/css/images/right-arrow.png" id="next">
+
+    </div>
+</div>
+
+
+</div>
+
+<script src="../static/js/particles.js" type="application/javascript"></script>
+<script src="../static/js/app.js" type="application/javascript"></script>
+<script src="../static/js/lib/stats.js"></script>
+
+<script>
+    var prev = document.getElementById("prev");
+    var next = document.getElementById("next");
+    var thumbnail  = document.getElementsByClassName("thumbnail");
+    var hero = document.getElementById("hero");
+    var imageViewer = document.getElementById("imageViewer");
+    var image = document.getElementById("image");
+
+    var bacckgroundImg = urls;
+    let i=0;
+    next.onclick = function(){
+
+        if(i<4){
+            image.src= bacckgroundImg[i+1];
+            {#imageViewer.style.backgroundImage='url("'+bacckgroundImg[i+1]+'")';#}
+            thumbnail[i+1].classList.add("active");
+            thumbnail[i].classList.remove("active");
+            i++;
+        }
+    }
+    prev.onclick = function(){
+
+        if(i>0){
+            image.src= bacckgroundImg[i-1];
+            {#imageViewer.style.backgroundImage='url("'+bacckgroundImg[i-1]+'")';#}
+            thumbnail[i-1].classList.add("active");
+            thumbnail[i].classList.remove("active");
+            i--;
+        }
+    }
+</script>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="sentFile"/>
+    <input type="submit" name="submit" value="Upload"/>
+</form>
+<ul>
+    {% for e in name %}
+    <p>{{e}}</p>
+    {% endfor %}
+</ul>
+
+{% for img in urls %}
+<img src="{{img}}">
+{% endfor %}
+
+{{name}}
+<img src="{{image}}">
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+</script>
+
+
+
+</body>
+</html>
+
